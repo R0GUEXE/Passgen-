@@ -10,8 +10,29 @@ win = ctk.CTk()
 win.title('Passgen!')
 win.geometry("520x125")
 
+pin = ctk.CTk()
+pin.title('Passgen!')
+pin.geometry("185x125")
+pinned = ""
+pin_ask = ctk.CTkEntry(master=pin, placeholder_text="Enter Pin Here", width=165)
+pin_ask.grid(row=1, column=1, padx=5, pady=3)
+
 server = 'server.bat'
 passfile = 'passwrdgen.txt'
+
+
+def pincheck():
+    if pin_ask.get() == pinned:
+        pin.destroy()
+        win.mainloop()
+    else:
+        pin_def = ctk.CTkLabel(master=pin, text="Incorrect Pin!", text_color="red")
+        pin_def.grid(row=3, column=1, padx=5, pady=3)
+        pincheck()
+
+
+pin_bttn = ctk.CTkButton(master=pin, text="Enter!", command=pincheck)
+pin_bttn.grid(row=2, column=1, padx=5, pady=3)
 
 
 def web():
@@ -77,4 +98,5 @@ bttn_open.grid(row=3, column=1, padx=5, pady=3)
 watermark = ctk.CTkLabel(master=win, text='Passgen!', font=('Goudy Old Style', 24),
                          text_color='dark gray')
 watermark.grid(row=2, column=1, padx=5, pady=3)
-win.mainloop()
+
+pin.mainloop()
